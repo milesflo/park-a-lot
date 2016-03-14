@@ -1,0 +1,181 @@
+body {
+	font-size: 16px;
+	background: black;
+}
+.navbar {
+    border-radius: 0;
+    margin: 0;
+    padding-bottom: 1em;
+}
+
+.container-fluid {
+	margin: 0 8%;
+}
+#displayFormat {
+ display: block;
+ margin: 0 auto;
+ width: 100%;
+}
+#header{
+    color: white;
+}
+.navbar-brand{
+    font-size: 35px;
+}
+#homeButton{
+    color: white;
+    font-size: 15px;
+    margin-top: 40%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#loginButton{
+    color: white;
+    font-size: 15px;
+    margin-top: 42%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#logout{
+    color: white;
+    background-color: #93c54b;
+    font-size: 15px;
+    margin-top: 40%;
+    margin-right: 8%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#mainImg{
+    width: 1150px;
+}
+#navbar{
+    margin-bottom: 0px;
+}
+#search-box{
+    margin-top: 20px;
+    margin-left: 33%;
+    margin-bottom: 2%;  
+}
+#searchBtn{
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 37.9861px;
+	border: 1px solid #CCCCCC;
+	border-radius:5px;
+}
+
+#searchBtn:hover {
+	box-shadow: 0 0 0 .1em #CCCCCC;
+}
+
+#eventName {
+	width: 500px;
+	height: 38px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555555;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+#musicCategory{
+    margin-bottom: 20px;
+    width: 100%;
+}
+#musicLabel{
+    text-align: center;
+}
+#sportsLabel{
+    text-align: center;
+}
+#foodLabel{
+    text-align: center;
+}
+#myEventsLabel{
+    text-align: center;
+}
+#myEventsCategory{
+    margin-bottom: 20px;
+}
+
+div.thumbnail {
+	min-height: 40.25em;
+}
+
+#Logo {
+	height: 43.5px;
+}
+
+div.thumbnail > img {
+	min-height: 20.25em;
+	max-height: 25.25em;
+}
+#thumbnailLabel{
+    text-align: center;
+}
+#thumbnailBtn{
+    margin-left: 82%;
+    font-size: 9px;
+    margin-top: 27%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#removeBtn{
+    margin-left: 78%;
+    font-size: 9px;
+    margin-top: 27%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+}
+#myEventsCategory{
+    margin-bottom: 20px;
+}
+#thumbnailLabel{
+    text-align: center;
+}
+#thumbnailBtn{
+    margin-left: 82%;
+    font-size: 9px;
+    margin-top: 27%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#removeBtn{
+    margin-left: 78%;
+    font-size: 9px;
+    margin-top: 27%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#popLabel{
+    text-align: center;
+}
+#footer{
+    color: white;
+    text-align: center;
+    height: 1px;
+    width: 100%;
+}
+#footerText{
+    color: white;
+    text-align: center;
+}
+.fa-spin {
+    animation: fa-spin 4s infinite linear;
+}
+#signupLabel{
+    text-align: center;
+}
+#fbBtn{
+    margin-left: 47%;
+    margin-bottom: 50px;
+}
+#loginSpacing{
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+

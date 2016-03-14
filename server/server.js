@@ -5,25 +5,16 @@ var express 			= require("express"),
 	routes 				= require('./routes'),
 	path 				= require('path'),
 	knex 				= require('../db/knex'),
-	passport 			= require('passport'),
     dotenv              = require('dotenv'),
-	fbworker			= require('./fbReqs.js'),
 	jwt					= require('jsonwebtoken'), 
 	token;
 
 
 require('dotenv').load();
 
-
-passport.deserializeUser(function(user, done) {
-	knex('users').where({ id: user.id }).then(function(user, err) {
-		done(err, user);
-	});
-});
-
 app.use('/client', express.static(path.join(__dirname, '../client')));
 app.use('/js',express.static(path.join(__dirname, '../client/js')));
-app.use('/templates',express.static(path.join(__dirname, '../client/js/templates')));
+app.use('/templates',express.static(path.join(__dirname, '../client/views/templates')));
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -34,8 +25,11 @@ app.get('/', function(req,res){
 	res.sendFile(path.join(__dirname,'../client/views', 'index.html'));
 });
 
+app.use(function(req, res, next){
+  res.status(404);
+  res.redirect('/#/')
+});
 
-require('./routes/users.js')(app,passport);
 var PORT = process.env.PORT || 3000;
 
 app.listen(PORT, function() {console.log("Listening on localhost:", PORT)});

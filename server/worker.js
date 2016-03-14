@@ -1,11 +1,13 @@
-var knex = require("./../db/knex.js");
-var dateFormat = require('dateformat');
+var knex        = require("./../db/knex.js"),
+    dateformat  = require('dateformat'),
+    dotenv      = require('dotenv');
+
 
 
 function processQueue() {
     knex('queue').whereNot({done: true}).then(function(queries) {
         for (var i = 0; i < queries.length; i++) {
-                console.log("hello", queries[i]);
+            console.log("Processing:", queries[i]);
             eventfulSearch(queries[i], function(result) {
             });
         }
