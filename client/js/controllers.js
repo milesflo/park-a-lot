@@ -1,7 +1,9 @@
-app.controller("Landing", function($scope, $rootScope, $routeParams, $http) {
+app.controller("Landing", function($scope, $rootScope, $routeParams, $http, NgMap) {
     window.scope = $scope;
-    $scope.eventCategories = [""];
     $scope.loading = false;
+
+
+    
     $scope.queueSearch = function(query) {
         console.log(query);
         // add a spinner gif to the page

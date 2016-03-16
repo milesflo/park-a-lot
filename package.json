@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/milesflo/park-a-lot",
   "dependencies": {
+    "angular-google-maps": "^2.3.2",
     "body-parser": "^1.15.0",
     "dateformat": "^1.0.12",
     "dotenv": "^2.0.0",
@@ -26,6 +27,7 @@
     "jsonwebtoken": "^5.7.0",
     "knex": "^0.10.0",
     "locus": "^1.2.0",
+    "lodash": "^4.6.1",
     "method-override": "^2.3.5",
     "morgan": "^1.6.1",
     "pg": "^4.4.6",

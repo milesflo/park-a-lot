@@ -1,4 +1,4 @@
-var app = angular.module("parksALot", ["ngRoute", "ngAnimate"]);
+var app = angular.module("parksALot", ["ngRoute", "ngAnimate", "ngMap"]);
 
 app.config(function($routeProvider, $locationProvider, $httpProvider) {
 	$routeProvider
