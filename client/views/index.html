@@ -9,7 +9,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-resource.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
 	<!-- Google Maps -->
-	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBDIf7L3N3_SSu3437WHRlBlB3wQaXzEDI"></script>
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBDIf7L3N3_SSu3437WHRlBlB3wQaXzEDI&libraries=places"></script>
 	<script src="/client/js/ng-map.js"></script>
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
@@ -24,9 +24,9 @@
 <body>
 	<div class="wrapper">
 	<!-- HEADER -->
-		<nav class="navbar navbar-default" id='navbar'>
+		<nav class="navbar navbar-default" id='header'>
 	  		<div class="container-fluid">
-	     			<a class="navbar-brand" href="/#/" id='header'>
+	     			<a class="navbar-brand" href="/#/" id='navbar'>
 	     				<img style="float: left" src="http://i287.photobucket.com/albums/ll124/falk826/My%20Home%20is%20My%20Castle/white-knight-helmet.png" id="Logo" alt="">
 	     				<h3 style="float:left"> Parks-A-Lot</h3>
 	     			</a>
@@ -37,7 +37,7 @@
 	  		</div>
 		</nav>
 		<!-- ng-view declaration -->
-		<div ng-view> </div>
+		<div ng-view id="content"> </div>
 
 		<!-- FOOTER -->
 		<div class="navbar navbar-default" id='footer'>
@@ -50,8 +50,5 @@
 	<script type="text/javascript" src="/client/js/filters.js"></script>
 	<script type="text/javascript" src="/client/js/services.js"></script>
 	
-	<!-- MapBox -->
-	<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
-	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
 </body>
 </html>

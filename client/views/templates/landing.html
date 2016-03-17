@@ -1,6 +1,21 @@
-<div>
-	
-	<ng-map zoom="10" center="37.7785190,-122.4056400">
-        <map-data load-geo-json="events.json"></map-data>
-      </ng-map>
+<div class="container-fluid">
+	<ng-map class="col-xs-9 no-pad"
+		zoom="13" 
+		center= "{{mapData.center}}"
+		style="height: 100%">
+  		<shape name="circle" id="circle" radius="{{mapData.circle.radius}}" center="{{mapData.circle.center}}" stroke-color="{{mapData.circle.strokeColor}}" stroke-opacity="{{mapData.circle.strokeOpacity" fill-color="{{mapData.circle.fillColor}}" fill-opacity="{{mapData.circle.fillOpacity}}" />
+  		<control name="overviewMap" opened="true" />
+  		
+		<input places-auto-complete types="['geocode']" on-place-changed="myCallback(place)" />
+	</ng-map>
+	<div id="listContainer" class="col-xs-3 no-pad">
+		<div style="height: 20%">
+			<select ng-model="mapData.circle.radius">
+				<option ng-repeat="distance in searchForm.distances" value="{{distance}}">{{distance}} ft.</option>
+			</select>
+		</div>
+		<div style="background-color: white; height: 75%">
+			
+		</div>
+	</div>
 </div>

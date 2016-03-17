@@ -4,7 +4,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 	$routeProvider
 	.when('/', {
 		templateUrl: "/client/views/templates/landing.html",
-		controller: "Landing"
+		controller: "MapPage"
 	})
 	.when('/map', {
 		templateUrl: "/client/views/templates/map.html",
