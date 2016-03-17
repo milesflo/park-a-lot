@@ -25,20 +25,6 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
         fillOpacity: 0.30,
     };
 
-    /* 
-
-    $scope.mapData.circle = var cityCircle = new google.maps.Circle({
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
-      center : "37.7756, -122.4193",
-      radius : 500
-    });
-
-    */
-
     $scope.searchForm = {};
     $scope.searchForm.distances = [500,750,1000, 1250, 1500];
 
