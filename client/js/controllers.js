@@ -2,48 +2,75 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
     window.scope = $scope;
     $scope.loading = false;
 
-    $scope.map = (document.getElementById('map'));
-    $scope.mapCircle = (document.getElementById('circles'));
+    $scope.tester = function(results, status) {
+        console.log('.')
+        console.log(results);
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            console.log('true')
+            for (var i = 0; i < results.length; i++) {
+                createMarker(results[i]);
+            }
+        }
+    }
 
     $scope.mapData = {
         center : "37.7756, -122.4193"
     };
-    $scope.mapData.markers = 
-        [{
-            
-        },
-        {
 
-        }]
+    $scope.mapData.targetLocation =
+        [{
+
+            position : $scope.mapData.center,
+            animation: google.maps.Animation.DROP,
+            draggable: true
+        }];
+
+    $scope.mapData.markers =
+        [{
+            position : "",
+            animation: google.maps.Animation.DROP,
+            draggable: false
+        }];
+
+    // $scope.distanceMeters = Number($scope.distance);
+
     $scope.mapData.circle = {
-        center : "37.7756, -122.4193",
-        radius : 500,
+        center : $scope.mapData.targetLocation[0].position,
+        radius : 0,
         strokeColor: '#32839C',
         strokeOpacity: 0.6,
-        strokeWeight: 2,
+        strokeWeight: .5,
         fillColor: '#519BB4',
         fillOpacity: 0.30,
     };
 
+    $scope.changeRadius = function () {
+        console.log(".")
+        $scope.mapData.circle.radius = parseInt($scope.distance) * 0.3048
+    }
+
+    $scope.updateCircle = function() {
+        console.log($scope.mapData.targetLocation[0])
+        $scope.mapData.circle.center = $scope.mapData.targetLocation[0].position;
+    }
+
     $scope.searchForm = {};
-    $scope.searchForm.distances = [500,750,1000, 1250, 1500];
+    $scope.searchForm.distances = [500, 1000, 1500, 2000, 2500];
 
     
-    $scope.queueSearch = function(query) {
+    $scope.queueSearch = function(query,dist) {
         console.log(query);
+        console.log(dist);
         // add a spinner gif to the page
-    	$http.get("/apiGet?q="+query);
+    	$http.get("/apiGet?q="+query+"&dist="+parseInt($scope.distance));
         $scope.loading = true;
 
         // use setTimeout to make another request after .5 seconds
         setTimeout( function() {
             $http.get("/searchResults?q="+query).then(function(results) {
-                /* THIS IS THE RESULT OF THE DATABASE CALL. IT DOES NOT FILTER DUPLICATE SEARCHES/RESULTS*/
-                var res = theGreaterParser(results)
-                $scope.results = [res[random(res)], res[random(res)], res[random(res)]]
-                console.log($scope.results);
-            });
-            $scope.loading = false;
-        },2000);
+                $scope.loading = false;
+            },2000);
+        })
     }
 });
+

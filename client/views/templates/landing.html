@@ -1,21 +1,54 @@
 <div class="container-fluid">
+
+	<div id="listContainer" class="col-xs-3">
+		<div class="searchArea">
+			<ng-form>
+				<input places-auto-complete types="['geocode']" on-place-changed="tester(place)" style="display:block; float:left">
+
+				<select ng-model="distance"  ng-change="changeRadius()" style="display:block; float:left">
+						<option ng-repeat="distance in searchForm.distances" value="{{distance}}">{{distance}} ft.</option>
+				</select>
+
+				<input type="submit" ng-click="queueSearch(query,distance)" style="display:block; float:left">
+			</ng-form>
+		</div>
+		<div style="background-color: white; height: 90%">
+
+			sample text
+		</div>
+	</div>
+
 	<ng-map class="col-xs-9 no-pad"
 		zoom="13" 
 		center= "{{mapData.center}}"
 		style="height: 100%">
-  		<shape name="circle" id="circle" radius="{{mapData.circle.radius}}" center="{{mapData.circle.center}}" stroke-color="{{mapData.circle.strokeColor}}" stroke-opacity="{{mapData.circle.strokeOpacity" fill-color="{{mapData.circle.fillColor}}" fill-opacity="{{mapData.circle.fillOpacity}}" />
-  		<control name="overviewMap" opened="true" />
-  		
-		<input places-auto-complete types="['geocode']" on-place-changed="myCallback(place)" />
+
+
+		<shape name="circle" id="circle" 
+			radius="{{mapData.circle.radius}}" 
+			center="{{mapData.circle.center}}" 
+			stroke-color="{{mapData.circle.strokeColor}}" 
+			stroke-opacity="{{mapData.circle.strokeOpacity" 
+			fill-color="{{mapData.circle.fillColor}}" 
+			fill-opacity="{{mapData.circle.fillOpacity}}">
+		</shape>
+
+		<control name="overviewMap" opened="true"></control>
+
+		<marker ng-repeat="target in mapData.targetLocation" 
+			position="{{target.position}}" 
+			animation="{{target.animation}}"
+			draggable="{{target.draggable}}">
+		</marker>
+
+		<marker ng-repeat="marker in mapData.markers" 
+			position="{{marker.position}}" 
+			animation="{{marker.animation}}"
+			draggable="{{marker.draggable}}">
+		</marker>
+
+
 	</ng-map>
-	<div id="listContainer" class="col-xs-3 no-pad">
-		<div style="height: 20%">
-			<select ng-model="mapData.circle.radius">
-				<option ng-repeat="distance in searchForm.distances" value="{{distance}}">{{distance}} ft.</option>
-			</select>
-		</div>
-		<div style="background-color: white; height: 75%">
-			
-		</div>
-	</div>
+
+
 </div>

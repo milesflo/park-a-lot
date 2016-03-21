@@ -1,6 +1,7 @@
 html{
     height: 100%;
     min-width: 1000px;
+    min-height: 500px;
 }
 body {
     font-size: 16px;
@@ -24,6 +25,11 @@ body {
 #header{
     margin-bottom: 0px;
     min-width: 900px;
+    padding-bottom: 0px;
+}
+
+#header > div > ul {
+    padding-top: 22px;
 }
 
 .navbar-brand{
@@ -35,7 +41,6 @@ body {
 #homeButton{
     color: white;
     font-size: 15px;
-    margin-top: 40%;
     padding-top: 2px;
     padding-bottom: 2px;
 }
@@ -43,7 +48,6 @@ body {
 #loginButton{
     color: white;
     font-size: 15px;
-    margin-top: 42%;
     padding-top: 2px;
     padding-bottom: 2px;
 }
@@ -66,12 +70,12 @@ body {
 }
 
 #content {
-   padding-bottom:60px;   /* Height of the footer */
+   padding-bottom:75px;   /* Height of the footer */
    height: 100%;
 }
 
 .wrapper {
-    height: 98%;
+    height: 100%;
 }
 
 body > div > div.ng-scope {
@@ -89,7 +93,22 @@ body > div > div.ng-scope > div {
     padding-right: 0px;
 }
 
+.searchArea {
+    height: 10%;
+}
+
+#listContainer > div.searchArea > ng-form * {
+    height: 30px;
+}
+
+#listContainer > div.searchArea > ng-form > select {
+    height: 30px;
+}
+
 #listContainer {
+    border: 1px solid blue;
     background-color: grey;
+    padding-top: 15px;
+    padding-bottom: 15px;
     height: 100%;
 }
