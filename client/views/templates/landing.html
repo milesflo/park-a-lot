@@ -3,7 +3,7 @@
 	<div id="listContainer" class="col-xs-3">
 		<div class="searchArea">
 			<ng-form>
-				<input places-auto-complete types="['geocode']" on-place-changed="tester(place)" style="display:block; float:left">
+				<input ng-model="query" places-auto-complete types="['geocode']" on-place-changed="getLocation(place)" style="display:block; float:left">
 
 				<select ng-model="distance"  ng-change="changeRadius()" style="display:block; float:left">
 						<option ng-repeat="distance in searchForm.distances" value="{{distance}}">{{distance}} ft.</option>
@@ -13,8 +13,8 @@
 			</ng-form>
 		</div>
 		<div style="background-color: white; height: 90%">
-
-			sample text
+		{{currentResults.locations || ""}}
+		<div ng-repeat="result in currentResults.parkingListing"></div>
 		</div>
 	</div>
 
@@ -25,6 +25,7 @@
 
 
 		<shape name="circle" id="circle" 
+			centered="true"
 			radius="{{mapData.circle.radius}}" 
 			center="{{mapData.circle.center}}" 
 			stroke-color="{{mapData.circle.strokeColor}}" 

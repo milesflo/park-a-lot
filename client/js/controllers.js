@@ -2,28 +2,23 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
     window.scope = $scope;
     $scope.loading = false;
 
-    $scope.tester = function(results, status) {
-        console.log('.')
-        console.log(results);
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-            console.log('true')
-            for (var i = 0; i < results.length; i++) {
-                createMarker(results[i]);
-            }
-        }
+
+    $scope.getLocation = function(results, status) {
+        if (marker) { marker.position = ""; }
+        $scope.map.setCenter(this.getPlace().geometry.location);
+        $scope.mapData.circle.center = this.getPlace().geometry.location;
+        var marker = new google.maps.Marker({
+            position: this.getPlace().geometry.location,
+            map: $scope.map,
+            title: "Current Location",
+            animation: google.maps.Animation.BOUNCE
+        })
+        console.log(marker);
     }
 
     $scope.mapData = {
         center : "37.7756, -122.4193"
     };
-
-    $scope.mapData.targetLocation =
-        [{
-
-            position : $scope.mapData.center,
-            animation: google.maps.Animation.DROP,
-            draggable: true
-        }];
 
     $scope.mapData.markers =
         [{
@@ -35,7 +30,7 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
     // $scope.distanceMeters = Number($scope.distance);
 
     $scope.mapData.circle = {
-        center : $scope.mapData.targetLocation[0].position,
+        center : $scope.mapData.center,
         radius : 0,
         strokeColor: '#32839C',
         strokeOpacity: 0.6,
@@ -49,28 +44,34 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
         $scope.mapData.circle.radius = parseInt($scope.distance) * 0.3048
     }
 
-    $scope.updateCircle = function() {
-        console.log($scope.mapData.targetLocation[0])
-        $scope.mapData.circle.center = $scope.mapData.targetLocation[0].position;
-    }
-
     $scope.searchForm = {};
     $scope.searchForm.distances = [500, 1000, 1500, 2000, 2500];
-
     
     $scope.queueSearch = function(query,dist) {
         console.log(query);
         console.log(dist);
-        // add a spinner gif to the page
-    	$http.get("/apiGet?q="+query+"&dist="+parseInt($scope.distance));
+    	$http.get("/apiGet?q="+query+"&dist="+parseInt(dist)).then(function(response) {
+            $scope.currentResults = response.data;
+            console.log(response.data);
+            for (var i = 0; i < response.data.parking_listings; i++) {
+                var resultObj = response.data.parking_listings[i];
+                new google.maps.Marker({
+                    position: [resultObj.lat,resultObj.lng],
+                    map: $scope.map,
+                    title: "Current Location",
+                    animation: google.maps.Animation.DROP
+                })
+            };
+        }, function (err) {
+            console.log(err);
+        });
         $scope.loading = true;
-
-        // use setTimeout to make another request after .5 seconds
-        setTimeout( function() {
-            $http.get("/searchResults?q="+query).then(function(results) {
-                $scope.loading = false;
-            },2000);
-        })
     }
+
+
+  NgMap.getMap().then(function(map) {
+    $scope.map = map;
+  });
+
 });
 
