@@ -27,9 +27,9 @@ app.get('/', function(req,res){
 });
 
 app.get('/apiGet', function(req,res) {
-	console.log(req.query);
+	console.log(req.query.dist);
 	request({
-		url: "http://api.parkwhiz.com/search/?destination=" + req.query.q + "&distance=" + req.query.dist + "&key="+process.env.keyParkWiz,
+		url: "http://api.parkwhiz.com/search/?destination=" + req.query.q + "&key="+process.env.keyParkWiz,
 		json: true
 		}, function(error, response, body) {
 			if (body) {

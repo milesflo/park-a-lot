@@ -113,3 +113,8 @@ body > div > div.ng-scope > div {
     padding-bottom: 15px;
     height: 100%;
 }
+
+.green {
+    background-color: green;
+
+}

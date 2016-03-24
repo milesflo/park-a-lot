@@ -12,13 +12,21 @@
 				<input type="submit" ng-click="queueSearch(query,distance)" style="display:block; float:left">
 			</ng-form>
 		</div>
-		<div style="background-color: white; height: 90%">
-		{{currentResults.locations || ""}}
-		<div ng-repeat="result in currentResults.parkingListing"></div>
+		<div style="background-color: white; height: 90%; overflow: scroll;">
+			<strong>{{parkingList.length || "0"}} Garages Found</strong>
+			<div ng-repeat="result in parkingList" style="border: 1px solid green">
+				<div ng-class="{'green': result.selected}">
+					
+					{{result.location_name}} <br>
+					{{result.price | currency : $}}
+					<button ng-click="selectGarage(result)"></button>
+
+				</div>
+			</div>
 		</div>
 	</div>
 
-	<ng-map class="col-xs-9 no-pad"
+	<ng-map id="map" class="col-xs-9 no-pad"
 		zoom="13" 
 		center= "{{mapData.center}}"
 		style="height: 100%">
@@ -35,19 +43,6 @@
 		</shape>
 
 		<control name="overviewMap" opened="true"></control>
-
-		<marker ng-repeat="target in mapData.targetLocation" 
-			position="{{target.position}}" 
-			animation="{{target.animation}}"
-			draggable="{{target.draggable}}">
-		</marker>
-
-		<marker ng-repeat="marker in mapData.markers" 
-			position="{{marker.position}}" 
-			animation="{{marker.animation}}"
-			draggable="{{marker.draggable}}">
-		</marker>
-
 
 	</ng-map>
 
