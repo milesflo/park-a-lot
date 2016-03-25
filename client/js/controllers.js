@@ -4,8 +4,18 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
     var garageMarker,
         marker;
 
+        console.log(NgMap);
+
+    NgMap.getMap().then(function(map) {
+        $scope.map =  new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 37.7756, lng: -122.4193},
+          zoom: 8
+        });
+    });
+
+
     $scope.getLocation = function(results, status) {
-        marker=null;
+        if (marker) marker.setMap(null);
         $scope.map.setCenter(this.getPlace().geometry.location);
         $scope.mapData.circle.center = this.getPlace().geometry.location;
             marker = new google.maps.Marker({
@@ -14,7 +24,7 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
             title: "Current Location",
             animation: google.maps.Animation.drop,
             icon: "https://mt.googleapis.com/vt/icon/name=icons/onion/112-purple.png&scale=1.0",
-        })
+        });
     }
 
     $scope.mapData = {
@@ -41,6 +51,11 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
     $scope.searchForm = {};
     $scope.searchForm.distances = [500, 1000, 1500, 2000, 2500];
     $scope.queueSearch = function(query) {
+        if ($scope.allMarkers) {
+            for (var n = 0; n < $scope.allMarkers.length; n++) {
+                $scope.allMarkers[n].setMap(null);
+            }
+        }
         var dist = parseInt($scope.distance);
         console.log(query);
         console.log(dist);
@@ -52,17 +67,17 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
                 for (var i = 0; i < response.data.parking_listings.length; i++) {
                     if (response.data.parking_listings[i].distance <= dist) {
                         var resultObj = response.data.parking_listings[i];
-                        resultObj.selected = false;
                         resultObj.iter = i;
                         $scope.parkingList.push(resultObj);
 
                         garageMarker = new google.maps.Marker({
-                            position: {lat: response.data.parking_listings[i].lat, lng: response.data.parking_listings[i].lng},
+                            position: {lat: $scope.parkingList[i].lat, lng: $scope.parkingList[i].lng},
                             map: $scope.map,
-                            title: response.data.parking_listings[i].location_name,
+                            title: $scope.parkingList[i].location_name,
                             animation: google.maps.Animation.DROP,
                             icon: "https://portovenere.a-turist.com/images/google_marker_violet.png",
-                        }).addListener('click', generateMarkerCB(garageMarker, $scope.parkingList[i]));
+                        });
+                        garageMarker.addListener('click', generateMarkerCB(garageMarker, $scope.parkingList[i]));
                         garageMarker.iter = i;
                         $scope.allMarkers.push(garageMarker);
                         
@@ -76,23 +91,26 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
     }
 
 
-    NgMap.getMap().then(function(map) {
-        $scope.map = map;
-    });
-
-
     $scope.selectGarage = function (listItem) {
-        console.log($scope.allMarkers[listItem.iter]);
+        $scope.allMarkers[listItem.iter].setAnimation(google.maps.Animation.BOUNCE);
+        setInterval(function() {
+            $scope.allMarkers[listItem.iter].setAnimation(undefined);
+        }, 3000)
     }
 
 
     function generateMarkerCB(marker, obj) {
         return function(garage) {
-            obj.selected = !(obj.selected);
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            $scope.selected = obj.iter;
+
+            setInterval(function() {
+                marker.setAnimation(undefined);
+                $scope.selected = "";
+            }, 3000);
+
             $scope.$apply();
        }
     }
 });
-
-
 

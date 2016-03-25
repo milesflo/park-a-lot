@@ -14,14 +14,12 @@
 		</div>
 		<div style="background-color: white; height: 90%; overflow: scroll;">
 			<strong>{{parkingList.length || "0"}} Garages Found</strong>
-			<div ng-repeat="result in parkingList" style="border: 1px solid green">
-				<div ng-class="{'green': result.selected}">
+			<div ng-repeat="result in parkingList" style="border: 1px solid black" ng-class="{'selected': selected == result.iter}">
 					
-					{{result.location_name}} <br>
-					{{result.price | currency : $}}
-					<button ng-click="selectGarage(result)"></button>
+				<h5> {{result.location_name}} </h5>
+				<p>{{result.price | currency : $}}</p>
+				<button ng-click="selectGarage(result)"></button>
 
-				</div>
 			</div>
 		</div>
 	</div>
