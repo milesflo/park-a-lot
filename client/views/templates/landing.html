@@ -1,3 +1,48 @@
-<div>
-	<h1>Reading</h1>
+<div class="container-fluid">
+
+	<div id="listContainer" class="col-xs-3">
+		<div class="searchArea">
+			<ng-form>
+				<input ng-model="query" places-auto-complete types="['geocode']" on-place-changed="getLocation(place)" style="display:block; float:left">
+
+				<select ng-model="distance"  ng-change="changeRadius()" style="display:block; float:left">
+						<option ng-repeat="distance in searchForm.distances" value="{{distance}}">{{distance}} ft.</option>
+				</select>
+
+				<input type="submit" ng-click="queueSearch(query,distance)" style="display:block; float:left">
+			</ng-form>
+		</div>
+		<div style="background-color: white; height: 90%; overflow: scroll;">
+			<strong>{{parkingList.length || "0"}} Garages Found</strong>
+			<div ng-repeat="result in parkingList" style="border: 1px solid black" ng-class="{'selected': selected == result.iter}">
+					
+				<h5> {{result.location_name}} </h5>
+				<p>{{result.price | currency : $}}</p>
+				<button ng-click="selectGarage(result)"></button>
+
+			</div>
+		</div>
+	</div>
+
+	<ng-map id="map" class="col-xs-9 no-pad"
+		zoom="13" 
+		center= "{{mapData.center}}"
+		style="height: 100%">
+
+
+		<shape name="circle" id="circle" 
+			centered="true"
+			radius="{{mapData.circle.radius}}" 
+			center="{{mapData.circle.center}}" 
+			stroke-color="{{mapData.circle.strokeColor}}" 
+			stroke-opacity="{{mapData.circle.strokeOpacity" 
+			fill-color="{{mapData.circle.fillColor}}" 
+			fill-opacity="{{mapData.circle.fillOpacity}}">
+		</shape>
+
+		<control name="overviewMap" opened="true"></control>
+
+	</ng-map>
+
+
 </div>

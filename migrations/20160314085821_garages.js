@@ -1,7 +1,10 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('garages', function(table){
     table.increments('id');
-    table.string('garageName')
+    table.string('garageId');
+    table.string('garageName');
+    table.string('latitude');
+    table.string('longitude');
     table.json('garageJson');
     table.timestamp("invalidateAt");
   });

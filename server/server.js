@@ -1,12 +1,13 @@
-var express 			= require("express"),
-	app 				= express(),
-	bodyParser 			= require("body-parser"),
-	morgan 				= require("morgan"),
-	routes 				= require('./routes'),
-	path 				= require('path'),
-	knex 				= require('../db/knex'),
-    dotenv              = require('dotenv'),
-	jwt					= require('jsonwebtoken'), 
+var express 	= require("express"),
+	app 		= express(),
+	bodyParser 	= require("body-parser"),
+	morgan 		= require("morgan"),
+	routes 		= require('./routes'),
+	path 		= require('path'),
+	knex 		= require('../db/knex'),
+    dotenv      = require('dotenv'),
+	jwt			= require('jsonwebtoken'), 
+	request     = require("request"),
 	token;
 
 
@@ -23,6 +24,25 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.get('/', function(req,res){
 	res.sendFile(path.join(__dirname,'../client/views', 'index.html'));
+});
+
+app.get('/apiGet', function(req,res) {
+	console.log(req.query.dist);
+	request({
+		url: "http://api.parkwhiz.com/search/?destination=" + req.query.q + "&key="+process.env.keyParkWiz,
+		json: true
+		}, function(error, response, body) {
+			if (body) {
+				res.json(body);
+			}
+		});
+
+
+		knex('queue').insert({
+			query: req.query.q,
+			distance: req.query.dist,
+			done: false
+		}).then(function () {});
 });
 
 app.use(function(req, res, next){
