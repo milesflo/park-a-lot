@@ -4,8 +4,6 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
     var garageMarker,
         marker;
 
-        console.log(NgMap);
-
     NgMap.getMap().then(function(map) {
         $scope.map =  new google.maps.Map(document.getElementById('map'), {
           center: {lat: 37.7756, lng: -122.4193},
@@ -57,8 +55,6 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
             }
         }
         var dist = parseInt($scope.distance);
-        console.log(query);
-        console.log(dist);
     	$http.get("/apiGet?q="+query+"&dist="+dist).then(function(response) {
             $scope.currentResults = response.data;
             $scope.parkingList = [];
