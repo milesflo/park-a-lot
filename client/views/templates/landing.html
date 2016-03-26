@@ -3,29 +3,34 @@
 	<div id="listContainer" class="col-xs-3">
 		<div class="searchArea">
 			<ng-form>
-				<input ng-model="query" places-auto-complete types="['geocode']" on-place-changed="getLocation(place)" style="display:block; float:left">
+				<input ng-model="query" class="queryInput"places-auto-complete types="['geocode']" on-place-changed="getLocation(place)" style="display:block; float:left">
 
-				<select ng-model="distance"  ng-change="changeRadius()" style="display:block; float:left">
+				<select ng-model="distance"  ng-change="changeRadius()" style="display:block; float:left; -webkit-appearance: menulist-button;">
 						<option ng-repeat="distance in searchForm.distances" value="{{distance}}">{{distance}} ft.</option>
 				</select>
 
 				<input type="submit" ng-click="queueSearch(query,distance)" style="display:block; float:left">
 			</ng-form>
 		</div>
-		<div style="background-color: white; height: 90%; overflow: scroll;">
+		<div class="list">
 			<strong>{{parkingList.length || "0"}} Garages Found</strong>
-			<div ng-repeat="result in parkingList" style="border: 1px solid black" ng-class="{'selected': selected == result.iter}">
-					
-				<h5> {{result.location_name}} </h5>
-				<p>{{result.price | currency : $}}</p>
-				<button ng-click="selectGarage(result)"></button>
+			<select ng-model="sortOrder">
+				<option value="''"> Distance </option>
+				<option value="result.price"> Price </option>
+			</select>
+			<div ng-repeat="result in parkingList | orderBy:'result.price'" class="item" ng-class="{'selected': selected == result.iter}" ng-mouseover="highlightIn(result)" ng-mouseleave="highlightOut(result)" >
+				<div>
+					<h4 ng-mouseover="bounceIn(result)" ng-mouseleave="bounceOut(result)" >{{result.iter + 1}}.) <strong>{{result.location_name}} </strong></h4>
+					<h5 class="distance" ng-class="{'distanceFar': result.distance >= distance/2}">{{result.distance}} ft.</h5>
+					<h5 class="price" ng-class="{'bestPrice': bestDeal.price == result.price}">{{result.price | currency : $}}</h5>
+				</div>
 
 			</div>
 		</div>
 	</div>
 
 	<ng-map id="map" class="col-xs-9 no-pad"
-		zoom="13" 
+		zoom="{{mapData.zoom}}" 
 		center= "{{mapData.center}}"
 		style="height: 100%">
 

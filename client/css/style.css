@@ -96,21 +96,21 @@ body > div > div.ng-scope > div {
 
 .searchArea {
     height: 10%;
+    padding-bottom: 10px;
 }
 
 #listContainer > div.searchArea > ng-form * {
-    height: 30px;
+    height: 100%;
 }
 
-#listContainer > div.searchArea > ng-form > select {
-    height: 30px;
+.queryInput {
+    line-height: 2rem;
 }
 
 #listContainer {
     border: 1px solid blue;
     background-color: grey;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 10px;
     height: 100%;
 }
 
@@ -119,3 +119,32 @@ body > div > div.ng-scope > div {
     background-color: rgba(50, 131, 156, 0.3)
 }
 
+.price {
+    color: green;
+}
+
+.distanceFar {
+    color: red;
+}
+
+.list {
+    background-color: white; 
+    height: 90%; 
+    overflow: scroll;
+    padding: 5px;
+    padding-right: 15px;
+}
+
+.item {
+    border: 1px solid black;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.bestPrice {
+    color: yellow;
+    font-weight: bolder;
+    font-family: Helvetica;
+    font-size: 2rem;
+
+}
