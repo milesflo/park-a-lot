@@ -15,6 +15,9 @@
   "bugs": {
     "url": ""
   },
+  "engines": {
+    "node": "4.2.1"
+  },
   "homepage": "https://github.com/milesflo/park-a-lot",
   "dependencies": {
     "body-parser": "^1.15.0",
