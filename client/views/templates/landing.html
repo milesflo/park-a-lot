@@ -3,25 +3,27 @@
 	<div id="listContainer" class="col-xs-3">
 		<div class="searchArea">
 			<ng-form>
-				<input ng-model="query" class="queryInput"places-auto-complete types="['geocode']" on-place-changed="getLocation(place)" style="display:block; float:left">
+				<input ng-model="query" class="queryInput"places-auto-complete types="['geocode']" on-place-changed="getLocation(place)" style="width: 100%">
 
-				<select ng-model="distance"  ng-change="changeRadius()" style="display:block; float:left; -webkit-appearance: menulist-button;">
+				<select ng-model="distance"  ng-change="changeRadius()" style="-webkit-appearance: menulist-button; width: 25%">
 						<option ng-repeat="distance in searchForm.distances" value="{{distance}}">{{distance}} ft.</option>
 				</select>
 
-				<input type="submit" ng-click="queueSearch(query,distance)" style="display:block; float:left">
+				<input type="submit" ng-click="queueSearch(query,distance)" style="width: 25%">
 			</ng-form>
 		</div>
 		<div class="list">
 			<strong>{{parkingList.length || "0"}} Garages Found</strong>
+			<!-- 
 			<select ng-model="sortOrder">
 				<option value="''"> Distance </option>
 				<option value="result.price"> Price </option>
 			</select>
+			-->
 			<div ng-repeat="result in parkingList | orderBy:'result.price'" class="item" ng-class="{'selected': selected == result.iter}" ng-mouseover="highlightIn(result)" ng-mouseleave="highlightOut(result)" >
 				<div>
-					<h4 ng-mouseover="bounceIn(result)" ng-mouseleave="bounceOut(result)" >{{result.iter + 1}}.) <strong>{{result.location_name}} </strong></h4>
-					<h5 class="distance" ng-class="{'distanceFar': result.distance >= distance/2}">{{result.distance}} ft.</h5>
+					<h4 ng-mouseover="bounceIn(result)" ng-mouseleave="bounceOut(result)" class="itemTitle">{{result.iter + 1}}.) <strong>{{result.location_name}} </strong></h4>
+					<h5 class="distance" ng-class="{'distanceFar': result.distance >= (distance*3/4)}">{{result.distance}} ft.</h5>
 					<h5 class="price" ng-class="{'bestPrice': bestDeal.price == result.price}">{{result.price | currency : $}}</h5>
 				</div>
 

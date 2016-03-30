@@ -11,11 +11,6 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
         });
     });
 
-    $scope.bestDeal = {
-        price: Infinity,
-        iter: "",
-    }
-
     $scope.getLocation = function(results, status) {
         if (marker) marker.setMap(null);
         $scope.map.setCenter(this.getPlace().geometry.location);
@@ -43,7 +38,7 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
         strokeOpacity: 0.3,
         strokeWeight: .5,
         fillColor: '#519BB4',
-        fillOpacity: 0.30,
+        fillOpacity: 0.25,
     };
 
     $scope.changeRadius = function () {
@@ -61,6 +56,10 @@ app.controller("MapPage", function($scope, $rootScope, $routeParams, $http, NgMa
         }
         var dist = parseInt($scope.distance);
     	$http.get("/apiGet?q="+query+"&dist="+dist).then(function(response) {
+            $scope.bestDeal = {
+                price: Infinity,
+                iter: "",
+            }
             $scope.currentResults = response.data;
             $scope.parkingList = [];
             $scope.allMarkers = [];
