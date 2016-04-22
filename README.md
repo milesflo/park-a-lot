@@ -22,6 +22,8 @@ I showed this app to a couple of friends to play around with. Here are my notes 
 
 3.) Change Park WHiz API to take Lag/Lng instead of address because better UX
 
+3a.) ** Be able to drop a pin and search around that.
+
 4.) set min-width on search field (or higher page minwidth)
 
 5.) Update the UI. Still looks "hella old looking"
